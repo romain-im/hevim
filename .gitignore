@@ -1,2 +1,4 @@
 .idea/
 node_modules/
+/hevim-app/plugins/
+/hevim-app/platforms/

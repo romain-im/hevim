@@ -19,7 +19,15 @@
 var app = {
     // Application Constructor
     initialize: function() {
-        document.addEventListener('deviceready', this.onDeviceReady.bind(this), false);
+        if (window.cordova) {
+            document.addEventListener('deviceready', this.onDeviceReady.bind(this), false);
+        } else {
+            document.addEventListener('DOMContentLoaded', this.onBrowserReady.bind(this), false);
+        }
+    },
+
+    onBrowserReady: function() {
+        this.receivedEvent('deviceready');
     },
 
     // deviceready Event Handler
@@ -28,6 +36,27 @@ var app = {
     // 'pause', 'resume', etc.
     onDeviceReady: function() {
         this.receivedEvent('deviceready');
+        window.open = cordova.InAppBrowser.open;
+
+        //setTimeout(() => {
+        //    var ref = cordova.InAppBrowser.open('http://apache.org', '_blank', 'location=yes');
+        //}, 2000);
+        //
+        //console.log(StatusBar);
+        //
+        //StatusBar.show();
+
+        //setTimeout(() => {
+        //    navigator.notification.prompt(
+        //        'Please enter your name',  // message
+        //        (name) => {
+        //            console.log(name);
+        //        },                  // callback to invoke
+        //        'Rechercher',            // title
+        //        ['Ok','Exit'],             // buttonLabels
+        //        'Jane Doe'                 // defaultText
+        //    );
+        //}, 2000);
     },
 
     // Update DOM on a Received Event
